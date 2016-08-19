@@ -1,4 +1,4 @@
-var auth = WeDeploy.auth('http://auth.liferayferias.wedeploy.me');
+var auth = WeDeploy.auth('http://auth.liferayferias.wedeploy.io');
 var provider = new auth.provider.Google();
 
 var authButton = document.querySelector('#authButton');

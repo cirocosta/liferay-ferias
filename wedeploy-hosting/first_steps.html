@@ -21,11 +21,11 @@ form.addEventListener('submit', function(event) {
     var managerId = parseInt(select.value);
 
     WeDeploy
-        .url('http://users.liferayferias.wedeploy.me/user/'+currentUser.id)
+        .url('http://users.liferayferias.wedeploy.io/user/'+currentUser.id)
         .patch({
             "manager": managerId,
         })
-        .url('http://users.liferayferias.wedeploy.me/user/'+managerId)
+        .url('http://users.liferayferias.wedeploy.io/user/'+managerId)
         .post({
             "isManager": true
         })

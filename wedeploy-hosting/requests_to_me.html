@@ -129,6 +129,23 @@
                 console.log('AAAAAAA', a);
             });
     });
+     var reject = document.getElementsByName('reject')[0];
+    reject.addEventListener('click', function() {
+        var textarea = document.getElementsByTagName('textarea')[0];
+        var id = document.getElementsByName('id')[0];
+        WeDeploy
+            .url('http://liferayferiasdata.liferayferias.wedeploy.me/requests/'+id.value)
+            .patch({
+                justification: textarea.value,
+                status: 'manager_rejected'
+            })
+            .then(function(r){
+                console.log(r);
+            })
+            .catch(function(a){
+                console.log('AAAAAAA', a);
+            });
+    });
 </script>
 
 

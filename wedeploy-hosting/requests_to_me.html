@@ -4,7 +4,12 @@
     <title>Liferay Ferias</title>
     <link rel="stylesheet" href="http://liferay.github.io/lexicon/css/lexicon-font-awesome.css">
     <link rel="stylesheet" href="http://liferay.github.io/lexicon/css/atlas-font-awesome.css">
+    <meta charset="utf-8" /> 
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 
+    <link rel="stylesheet" href="metal-liferayFerias/build/liferayFerias.css">
+    <script src="metal-liferayFerias/build/globals/liferayFerias.js"></script>
     <script src="http://cdn.wedeploy.com/api/latest/wedeploy.js"></script>
 <style>
     body {
@@ -19,6 +24,8 @@
     <!-- http://liferayferiasauth.liferayferias.wedeploy.me/oauth/token -->
 </head>
 <body>
+<div class="banner"></div>
+    <script src="/banner.js"></script>
 <div class="toolbar">
     <span class="user-name">Fulano de tal <span class="available-days">(30 dias)</span></span>
 </div>
@@ -117,11 +124,27 @@
 
     approve.addEventListener('click', function() {
         var id = document.getElementsByName('id')[0];
+ 
+        var currentUser = WeDeploy.auth().currentUser;
+
+if (currentUser) {
+console.log(currentUser);
+    // User is signed in.
+} else {
+    // No user is signed in.
+}
+    
         WeDeploy
             .url('http://liferayferiasdata.liferayferias.wedeploy.me/requests/'+id.value)
             .patch({
                 status: "manager_approved"
-            })
+            });
+        WeDeploy.url('http://mamail.liferayferias.wedeploy.me/emails')
+            .form('from', 'trololol@liferay.com')
+            .form('to', 'adam.brandizzi@liferay.com')
+            .form('subject', 'You have been... APPROVED')
+            .form('message', 'Yeah you are approved')
+            .post()
             .then(function(r){
                 console.log(r);
             })
@@ -138,7 +161,13 @@
             .patch({
                 justification: textarea.value,
                 status: 'manager_rejected'
-            })
+            });
+        WeDeploy.url('http://mamail.liferayferias.wedeploy.me/emails')
+            .form('from', currentUser.email)
+            .form('to', 'adam.brandizzi@liferay.com')
+            .form('subject', 'You have been... REJECTED')
+            .form('message', 'Yeah you are REJECTED. jUSTIFICATION: '+textarea.value +'. You suck.')
+            .post()
             .then(function(r){
                 console.log(r);
             })

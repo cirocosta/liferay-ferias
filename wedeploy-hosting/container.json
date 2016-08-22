@@ -3,7 +3,7 @@
     "name": "WeDeploy Hosting",
     "type": "wedeploy/nodejs:latest",
     "hooks": {
-      "before_build": "cd metal-liferayFerias && npm install --no-bin-links",
+      "before_build": "cd metal-liferayFerias && npm install",
       "build": "cd metal-liferayFerias && gulp build"
     }
 }
